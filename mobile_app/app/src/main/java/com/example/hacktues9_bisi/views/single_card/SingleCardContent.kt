@@ -9,10 +9,10 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.hacktues9_bisi.network.customers.Customer
 import androidx.compose.material3.Icon
 import androidx.compose.ui.res.painterResource
 import com.example.hacktues9_bisi.R
+import com.example.hacktues9_bisi.data.server.Customer
 
 @Composable
 fun SingleCardContent(

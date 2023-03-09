@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.hacktues9_bisi.R
-import com.example.hacktues9_bisi.network.customers.Customer
+import com.example.hacktues9_bisi.data.server.Customer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
