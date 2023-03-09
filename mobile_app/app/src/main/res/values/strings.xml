@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">hacktues9-bisi</string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+    <!-- Login -->
+    <string name="login">Login</string>
+    <string name="not_registered_question">"You haven't registered yet?"</string>
+
+    <!-- Registration -->
+    <string name="register">Register</string>
+    <string name="done">Done</string>
+
+    <!-- Home -->
+
+
+</resources>
