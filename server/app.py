@@ -1,8 +1,13 @@
-from flask import Flask, jsonify, request, make_response
+import datetime
+from random import randint
 import firebase_admin
+import random
+import string
+from flask import Flask, jsonify, request, make_response
 from firebase_admin import firestore
 from firebase_admin import credentials
 from firebase_admin import storage
+import time
 import uuid
 
 app = Flask(__name__)
@@ -13,10 +18,9 @@ firebase_admin.initialize_app(cred, {
 })
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def hello():
     return 'Hello, World!'
-
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
@@ -32,18 +36,19 @@ def upload():
 
     image_data = request.get_data()
 
+
     # print(image_data)
 
-    db = firestore.client()
+    # db = firestore.client()
 
     user_uid = str(uuid.uuid4())
-
-    with open(f'./images/{user_uid}.jpeg', 'wb') as f:
+    date_created = str(datetime.datetime.now().strftime("%x_%X").replace(":", "_").replace("/", "_"))
+    with open(f'./images/{datetime.datetime.now().strftime("%x_%X").replace(":", "_").replace("/", "_")}.jpeg', 'wb+') as f:
         f.write(image_data)
 
     bucket = storage.bucket()
-    blob = bucket.blob(f'{user_uid}.jpeg')
-    blob.upload_from_filename(f'./images/{user_uid}.jpeg')
+    blob = bucket.blob(f'{date_created}.jpeg')
+    blob.upload_from_filename(f'./images/{date_created}.jpeg')
 
     doc_ref = db.collection(u'users').document(user_uid)
 
@@ -86,4 +91,4 @@ def user(user_uid):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0")
