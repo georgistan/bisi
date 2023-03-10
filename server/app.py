@@ -1,5 +1,6 @@
 import datetime
 from random import randint
+import threading
 import firebase_admin
 import random
 import string
@@ -8,7 +9,9 @@ from firebase_admin import firestore
 from firebase_admin import credentials
 from firebase_admin import storage
 import time
+import socket
 import uuid
+import os
 
 app = Flask(__name__)
 
@@ -18,15 +21,49 @@ firebase_admin.initialize_app(cred, {
 })
 
 
+def thread_socket():
+    print('socket')
+    HOST = "127.0.0.1"
+    PORT = 65432
+    IMAGES_FOLDER = 'images'
+
+    server_dir = os.path.abspath(os.path.dirname(__file__))
+    images_dir = os.path.join(server_dir, IMAGES_FOLDER)
+
+    # while True:
+    #     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    #         s.connect((HOST, PORT))
+    #         s.sendall(b"Hello, world")
+    #         data = s.recv(1024)
+    #         time.sleep(1)
+
+    #     print(f"Received {data!r}")
+
+    while True:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((HOST, PORT))
+            file_paths = []
+            for filename in os.listdir(images_dir):
+                file_paths.append(os.path.join(images_dir, filename))
+                print(os.path.join(images_dir, filename))
+            file_paths_bytes = '\n'.join(file_paths).encode()
+            s.sendall(file_paths_bytes)
+            print(f'Sent {len(file_paths)} file paths')
+            time.sleep(1)
+
+        # print(f'Received: {response.decode()}')
+
+        # print(f"Received {data!r}")
+
+
 @app.route('/', methods=['GET'])
 def hello():
     return 'Hello, World!'
 
+
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
-    # db = firestore.Client()
-    # db.collection('test').document('test').set({'test': 'test'})
-    # return 'Upload success'
+    db = firestore.client()
 
     if not request.get_data():
         return make_response(jsonify({'message': 'No file'}), 400)
@@ -36,19 +73,15 @@ def upload():
 
     image_data = request.get_data()
 
-
-    # print(image_data)
-
-    # db = firestore.client()
-
     user_uid = str(uuid.uuid4())
-    date_created = str(datetime.datetime.now().strftime("%x_%X").replace(":", "_").replace("/", "_"))
-    with open(f'./images/{datetime.datetime.now().strftime("%x_%X").replace(":", "_").replace("/", "_")}.jpeg', 'wb+') as f:
+    file_name = str(datetime.datetime.now().strftime(
+        "%x_%X").replace(":", "_").replace("/", "_"))+".jpeg"
+    with open(f'./images/{file_name}', 'wb+') as f:
         f.write(image_data)
 
     bucket = storage.bucket()
-    blob = bucket.blob(f'{date_created}.jpeg')
-    blob.upload_from_filename(f'./images/{date_created}.jpeg')
+    blob = bucket.blob(file_name)
+    blob.upload_from_filename(f'./images/{file_name}')
 
     doc_ref = db.collection(u'users').document(user_uid)
 
@@ -91,4 +124,12 @@ def user(user_uid):
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0")
+    print('start')
+    x = threading.Thread(target=thread_socket)
+    x.start()
+    y = threading.Thread(target=app.run, args=("0.0.0.0", 5000))
+    y.start()
+    # app.run(host="0.0.0.0", port=5000)
+    print("Waiting for thread...")
+    x.join()
+    y.join()
