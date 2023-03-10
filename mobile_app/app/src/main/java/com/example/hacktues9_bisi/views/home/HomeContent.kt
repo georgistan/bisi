@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.hacktues9_bisi.network.customers.Customer
+import com.example.hacktues9_bisi.data.server.Customer
 
 @Composable
 fun HomeContent(
@@ -30,15 +30,15 @@ fun HomeContent(
 
 private val itemsData = listOf(
     Customer(
-        id = 1,
-        riskPercentage = 60
+        id = 1F,
+        riskPercentage = 60F
     ),
     Customer(
-        id = 2,
-        riskPercentage = 70
+        id = 2F,
+        riskPercentage = 70F
     ),
     Customer(
-        id = 3,
-        riskPercentage = 50
+        id = 3F,
+        riskPercentage = 50F
     )
 )

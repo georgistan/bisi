@@ -2,8 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-//    id 'com.google.dagger.hilt.android'
-    id 'com.google.gms.google-services'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -55,17 +54,24 @@ dependencies {
     implementation 'androidx.navigation:navigation-runtime-ktx:2.5.3'
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
-    //firebase
-    implementation platform('com.google.firebase:firebase-bom:31.2.3')
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-
     // material3
-    implementation "androidx.compose.material3:material3:1.0.1"
+    def material3_version = "1.0.1"
+    implementation "androidx.compose.material3:material3:$material3_version"
+
+    // retrofit
+    def retrofit_version = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+
+    // moshi json library
+    def moshi_version = "1.14.0"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+
 
     // hilt di
-//    implementation 'com.google.dagger:hilt-android:2.44'
-//    kapt("com.google.dagger:hilt-android-compiler:2.44")
-//    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+    implementation 'com.google.dagger:hilt-android:2.44'
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'

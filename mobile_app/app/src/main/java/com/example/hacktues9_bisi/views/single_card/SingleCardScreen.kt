@@ -2,7 +2,7 @@ package com.example.hacktues9_bisi.views.single_card
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import com.example.hacktues9_bisi.network.customers.Customer
+import com.example.hacktues9_bisi.data.server.Customer
 import com.example.hacktues9_bisi.navigation.Screen
 import com.example.hacktues9_bisi.navigation.navigateSingleTopTo
 
