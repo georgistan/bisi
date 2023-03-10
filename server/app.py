@@ -26,7 +26,7 @@ def upload():
 
     if not request.get_data():
         return make_response(jsonify({'message': 'No file'}), 400)
-    
+
     if request.path != '/upload':
         return make_response(jsonify({'message': 'Invalid path'}), 404)
 
@@ -55,6 +55,34 @@ def upload():
     })
 
     return make_response(jsonify({'message': 'Upload success'}), 200)
+
+
+@app.route('/users', methods=['GET'])
+def users():
+    db = firestore.client()
+
+    users_ref = db.collection(u'users')
+    docs = users_ref.stream()
+
+    users = []
+
+    for doc in docs:
+        users.append(doc.to_dict())
+
+    return make_response(jsonify({'users': users}), 200)
+
+
+@app.route('/users/<user_uid>', methods=['GET'])
+def user(user_uid):
+    db = firestore.client()
+
+    users_ref = db.collection(u'users')
+    doc = users_ref.document(user_uid).get()
+
+    if not doc.exists:
+        return make_response(jsonify({'message': 'User not found'}), 404)
+
+    return make_response(jsonify(doc.to_dict()), 200)
 
 
 if __name__ == '__main__':
