@@ -1,0 +1,5 @@
+# ignore the file that has name serviceAccountKey.json
+serviceAccountKey.json
+
+# ignore the __pycache__ directory
+__pycache__
