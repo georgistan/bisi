@@ -3,7 +3,6 @@ package com.example.hacktues9_bisi.data.server
 import retrofit2.http.GET
 
 interface CustomerService {
-
-    @GET()
+    @GET("/users")
     suspend fun getCustomers(): ServiceResponse
 }

@@ -11,34 +11,16 @@ import com.example.hacktues9_bisi.data.server.Customer
 @Composable
 fun HomeContent(
     modifier: Modifier = Modifier,
-    onClickUserCard: (Int) -> Unit
+    customers: List<Customer>
 ) {
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(16.dp)
     ) {
-        items(itemsData) { item ->
+        items(customers) { item ->
             CustomerCard(
-                customer = item,
-                onClick = {
-
-                }
+                customer = item
             )
         }
     }
 }
-
-private val itemsData = listOf(
-    Customer(
-        id = 1F,
-        riskPercentage = 60F
-    ),
-    Customer(
-        id = 2F,
-        riskPercentage = 70F
-    ),
-    Customer(
-        id = 3F,
-        riskPercentage = 50F
-    )
-)

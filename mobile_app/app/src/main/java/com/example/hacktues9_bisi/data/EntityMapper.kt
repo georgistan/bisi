@@ -7,14 +7,18 @@ open class EntityMapper {
     open fun mapToCustomerEntity(customer: Customer): CustomerEntity{
         return CustomerEntity(
             id = customer.id,
-            riskPercentage = customer.riskPercentage
+            riskPercentage = customer.riskPercentage,
+            createdAt = customer.createdAt,
+            imageUrl = customer.imageUrl
         )
     }
 
     open fun mapFromCustomerEntity(customerEntity: CustomerEntity): Customer{
         return Customer(
             id = customerEntity.id,
-            riskPercentage = customerEntity.riskPercentage
+            riskPercentage = customerEntity.riskPercentage,
+            createdAt = customerEntity.createdAt,
+            imageUrl = customerEntity.imageUrl
         )
     }
 }

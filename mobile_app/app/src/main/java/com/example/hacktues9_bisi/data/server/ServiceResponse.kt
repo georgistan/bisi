@@ -5,6 +5,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class ServiceResponse(
-    @field:Json(name = "customers")
+    @field:Json(name = "users")
     var customers: List<CustomerEntity> = listOf()
 )

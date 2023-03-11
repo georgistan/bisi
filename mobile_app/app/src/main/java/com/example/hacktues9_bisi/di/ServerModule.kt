@@ -16,7 +16,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 @Module
 @InstallIn(SingletonComponent::class)
 object ServerModule {
-    private const val BASE_URL = ""
+    private const val BASE_URL = "http://192.168.0.102:5000"
 
     @Provides
     @Singleton
@@ -40,9 +40,9 @@ object ServerModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient, moshi: Moshi): Retrofit {
         return Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .client(client)
             .baseUrl(BASE_URL)
+            .client(client)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
 
