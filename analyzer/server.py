@@ -32,3 +32,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     # process the file data as needed
                     print(
                         f'Received file {file_path} with {len(file_data)} bytes')
+            # conn.sendall(b'Successfully received files')
