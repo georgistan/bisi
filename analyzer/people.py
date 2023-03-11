@@ -171,7 +171,7 @@ def server_socket():
                                     print(
                                         f"Skipping {filename} - unable to detect eyes")
 
-                            conn.sendall(risk_percentage)
+                            # conn.sendall(str(risk_percentage).encode())
                             # with open(file_path, 'rb') as f:
                             #     file_data = f.read()
                             #     print(

@@ -49,7 +49,7 @@ def thread_socket():
             file_paths_bytes = '\n'.join(file_paths).encode()
             s.sendall(file_paths_bytes)
             print(f'Sent {len(file_paths)} file paths')
-            data = s.recv(1024)
+            # data = s.recv(1024)
             time.sleep(1)
 
         # print(f'Received: {response.decode()}')

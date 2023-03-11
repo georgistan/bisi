@@ -3,3 +3,5 @@ serviceAccountKey.json
 
 # ignore the __pycache__ directory
 __pycache__
+
+yolov3.*
